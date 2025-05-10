@@ -15,7 +15,7 @@
                     <li><a href="#intro">Intro</a></li>
                     <li><a href="#features">Features</a></li>
                     <li><a href="#spotify">Spotify</a></li>
-                    <li><a href="#antivirus">Upload</a></li>
+                    <li><a href="#antivirus">Scan</a></li>
                     <li><a href="#upscaling">Upscaling</a></li>
                 </ul>
             </nav>
@@ -51,7 +51,7 @@
         </section>
 
         <section id="antivirus" class="card">
-            <h2>Upload File for AI Scan</h2>
+            <h2>Upload File for Virus Scan</h2>
             <form id="uploadForm">
                 <input type="file" id="fileInput" required />
                 <button type="submit">Upload & Scan</button>
@@ -72,6 +72,79 @@
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script>
+        // Spotify Auth
+        const clientId = '1wb6zpqvawgruzzali70rnwql';
+        const redirectUri = window.location.origin;
+        const scopes = 'user-read-playback-state user-read-currently-playing';
+
+        document.getElementById('loginSpotify').addEventListener('click', () => {
+            const authUrl = `https://accounts.spotify.com/authorize?response_type=token&client_id=${clientId}&scope=${scopes}&redirect_uri=${redirectUri}`;
+            window.location = authUrl;
+        });
+
+        window.addEventListener('load', () => {
+            const hash = window.location.hash.substring(1);
+            const hashParams = {};
+            hash.split('&').forEach(param => {
+                const [key, value] = param.split('=');
+                if (key && value) hashParams[key] = decodeURIComponent(value);
+            });
+
+            const accessToken = hashParams['access_token'];
+
+            if (accessToken) {
+                fetch('https://api.spotify.com/v1/me/player/currently-playing', {
+                    headers: { Authorization: `Bearer ${accessToken}` }
+                })
+                .then(res => res.json())
+                .then(data => {
+                    const nowPlaying = document.getElementById('nowPlaying');
+                    if (data?.item) {
+                        nowPlaying.innerHTML = `<p><strong>${data.item.name}</strong> by ${data.item.artists.map(a => a.name).join(', ')}</p><img src="${data.item.album.images[0].url}" width="100" alt="Album Art">`;
+                    } else {
+                        nowPlaying.textContent = 'No track currently playing.';
+                    }
+                })
+                .catch(err => {
+                    document.getElementById('nowPlaying').textContent = 'Error fetching Spotify data: ' + err;
+                });
+            }
+
+            // GPU Detection
+            const canvas = document.createElement('canvas');
+            const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+            const debugInfo = gl?.getExtension('WEBGL_debug_renderer_info');
+            const vendor = debugInfo ? gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) : 'Unavailable';
+            const gpuVendor = /NVIDIA/i.test(vendor) ? 'NVIDIA' : /AMD|Radeon/i.test(vendor) ? 'AMD' : /Intel/i.test(vendor) ? 'Intel' : 'Other';
+            document.getElementById('gpuVendor').textContent = vendor || gpuVendor;
+        });
+
+        // Upload & Scan File
+        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const file = document.getElementById('fileInput').files[0];
+            const result = document.getElementById('uploadResult');
+
+            if (!file) return (result.textContent = 'No file selected.');
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            try {
+                const response = await fetch('https://www.virustotal.com/api/v3/files', {
+                    method: 'POST',
+                    headers: {
+                        'x-apikey': 'bf0ce37fe7178ab92d310a466eb329b138c65bc4f5d1c0814e85bffb5a53440b'
+                    },
+                    body: formData
+                });
+                const data = await response.json();
+                result.textContent = JSON.stringify(data, null, 2);
+            } catch (err) {
+                result.textContent = 'Error uploading file: ' + err.message;
+            }
+        });
+    </script>
 </body>
 </html>
