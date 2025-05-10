@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Krynet | AI Communication Platform</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <header>
+        <h1>Krynet</h1>
+        <p>Secure. Lightweight. AI-Powered Communication.</p>
+    </header>
+
+    <main>
+        <section id="intro">
+            <h2>Welcome to Krynet</h2>
+            <p>Built for instant communication with AI moderation, built-in antivirus, and total API-dependency. No Chromium, no bloat, just pure speed and security.</p>
+        </section>
+
+        <section id="features">
+            <h2>Features</h2>
+            <ul>
+                <li>⚡ Instant Communication</li>
+                <li>🤖 AI Moderation Engine</li>
+                <li>🛡️ Built-in Antivirus Scanner</li>
+                <li>🎧 Spotify Integration (Only Music Support)</li>
+                <li>🎮 Steam Store Integration</li>
+                <li>🔒 HEIF, HE-AAC, and AVIF Only</li>
+                <li>📁 Full HEIF, HE-AAC, AVIF Media Embedding</li>
+                <li>📡 100% API-Driven</li>
+                <li>📺 AI-Based Video Upscaling (NVIDIA/AMD/Intel aware)</li>
+                <li>🧠 All uploaded files are scanned, AI-compressed, format-verified, and deleted if malicious. Krynet.dev/cdn/ auto-scans uploads for viruses.</li>
+            </ul>
+        </section>
+
+        <section id="spotify">
+            <h2>Spotify Now Playing</h2>
+            <button id="loginSpotify">Login with Spotify</button>
+            <div id="nowPlaying"></div>
+        </section>
+
+        <section id="antivirus">
+            <h2>Virus Scanner</h2>
+            <form id="scanForm">
+                <input type="text" id="urlInput" placeholder="Enter file URL to scan..." required />
+                <button type="submit">Scan</button>
+            </form>
+            <pre id="scanResult"></pre>
+        </section>
+
+        <section id="upscaling">
+            <h2>Video Upscaling</h2>
+            <p>GPU Detected: <span id="gpuVendor">Detecting...</span></p>
+            <p><strong>Note:</strong> Videos may be enhanced using AI filters if compatible GPU is detected (NVIDIA/AMD/Intel).</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Krynet. All rights reserved.</p>
+    </footer>
+
+    <script>
+        const apiKey = 'YOUR_API_KEY';
+        const scanForm = document.getElementById('scanForm');
+        const scanResult = document.getElementById('scanResult');
+
+        scanForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const url = document.getElementById('urlInput').value;
+
+            fetch(`https://www.virustotal.com/vtapi/v2/url/report?apikey=${apiKey}&url=${encodeURIComponent(url)}`)
+                .then(res => res.json())
+                .then(data => {
+                    scanResult.textContent = JSON.stringify(data, null, 2);
+                })
+                .catch(err => {
+                    scanResult.textContent = 'Error fetching the VirusTotal API: ' + err;
+                });
+        });
+
+        // Spotify API Integration
+        const clientId = 'YOUR_SPOTIFY_CLIENT_ID';
+        const redirectUri = window.location.origin;
+        const scopes = 'user-read-playback-state user-read-currently-playing';
+
+        document.getElementById('loginSpotify').addEventListener('click', () => {
+            const authUrl = `https://accounts.spotify.com/authorize?response_type=token&client_id=${clientId}&scope=${scopes}&redirect_uri=${redirectUri}`;
+            window.location = authUrl;
+        });
+
+        window.addEventListener('load', () => {
+            const hash = window.location.hash.substring(1);
+            const hashParams = {};
+            hash.split('&').forEach(param => {
+                const [key, value] = param.split('=');
+                if (key && value) {
+                    hashParams[key] = decodeURIComponent(value);
+                }
+            });
+
+            const accessToken = hashParams['access_token'];
+
+            if (accessToken) {
+                fetch('https://api.spotify.com/v1/me/player/currently-playing', {
+                    headers: {
+                        Authorization: `Bearer ${accessToken}`
+                    }
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data && data.item) {
+                            const nowPlaying = document.getElementById('nowPlaying');
+                            nowPlaying.innerHTML = `
+                                <p><strong>${data.item.name}</strong> by ${data.item.artists.map(artist => artist.name).join(', ')}</p>
+                                <img src="${data.item.album.images[0].url}" width="100" alt="Album Art" />
+                            `;
+                        } else {
+                            document.getElementById('nowPlaying').textContent = 'No track currently playing.';
+                        }
+                    })
+                    .catch(err => {
+                        document.getElementById('nowPlaying').textContent = 'Error fetching Spotify data: ' + err;
+                    });
+            }
+
+            // GPU Detection for Video Upscaling
+            const gpuSpan = document.getElementById('gpuVendor');
+            const canvas = document.createElement('canvas');
+            const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+
+            if (!gl) {
+                gpuSpan.textContent = 'Unknown';
+                return;
+            }
+
+            const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+            const vendor = debugInfo ? gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL) : 'Unavailable';
+
+            let gpuVendor = 'Other';
+            if (/NVIDIA/i.test(vendor)) gpuVendor = 'NVIDIA';
+            else if (/AMD|Radeon/i.test(vendor)) gpuVendor = 'AMD';
+            else if (/Intel/i.test(vendor)) gpuVendor = 'Intel';
+
+            gpuSpan.textContent = vendor || gpuVendor;
+        });
+    </script>
+</body>
+</html>
