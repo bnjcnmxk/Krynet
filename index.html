@@ -47,7 +47,7 @@
         <section id="spotify" class="card">
             <h2>Spotify Now Playing</h2>
             <button id="loginSpotify">Login with Spotify</button>
-            <div id="nowPlaying" class="now-playing"></div>
+            <div id="nowPlaying" class="now-playing">Not connected to Spotify.</div>
         </section>
 
         <section id="antivirus" class="card">
@@ -74,15 +74,17 @@
 
     <script>
         // Spotify Auth
-        const clientId = '1wb6zpqvawgruzzali70rnwql';
+        const clientId = 'YOUR_SPOTIFY_CLIENT_ID';
         const redirectUri = window.location.origin;
         const scopes = 'user-read-playback-state user-read-currently-playing';
 
+        // Login button event listener
         document.getElementById('loginSpotify').addEventListener('click', () => {
             const authUrl = `https://accounts.spotify.com/authorize?response_type=token&client_id=${clientId}&scope=${scopes}&redirect_uri=${redirectUri}`;
             window.location = authUrl;
         });
 
+        // On page load, check for token in URL
         window.addEventListener('load', () => {
             const hash = window.location.hash.substring(1);
             const hashParams = {};
@@ -94,21 +96,8 @@
             const accessToken = hashParams['access_token'];
 
             if (accessToken) {
-                fetch('https://api.spotify.com/v1/me/player/currently-playing', {
-                    headers: { Authorization: `Bearer ${accessToken}` }
-                })
-                .then(res => res.json())
-                .then(data => {
-                    const nowPlaying = document.getElementById('nowPlaying');
-                    if (data?.item) {
-                        nowPlaying.innerHTML = `<p><strong>${data.item.name}</strong> by ${data.item.artists.map(a => a.name).join(', ')}</p><img src="${data.item.album.images[0].url}" width="100" alt="Album Art">`;
-                    } else {
-                        nowPlaying.textContent = 'No track currently playing.';
-                    }
-                })
-                .catch(err => {
-                    document.getElementById('nowPlaying').textContent = 'Error fetching Spotify data: ' + err;
-                });
+                // Set up Spotify player info with the access token
+                fetchSpotifyData(accessToken);
             }
 
             // GPU Detection
@@ -120,31 +109,32 @@
             document.getElementById('gpuVendor').textContent = vendor || gpuVendor;
         });
 
-        // Upload & Scan File
-        document.getElementById('uploadForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const file = document.getElementById('fileInput').files[0];
-            const result = document.getElementById('uploadResult');
-
-            if (!file) return (result.textContent = 'No file selected.');
-
-            const formData = new FormData();
-            formData.append('file', file);
-
+        // Fetch currently playing track from Spotify API
+        async function fetchSpotifyData(accessToken) {
             try {
-                const response = await fetch('https://www.virustotal.com/api/v3/files', {
-                    method: 'POST',
+                const response = await fetch('https://api.spotify.com/v1/me/player/currently-playing', {
                     headers: {
-                        'x-apikey': ''
-                    },
-                    body: formData
+                        'Authorization': `Bearer ${accessToken}`
+                    }
                 });
                 const data = await response.json();
-                result.textContent = JSON.stringify(data, null, 2);
+                const nowPlaying = document.getElementById('nowPlaying');
+                
+                if (data?.item) {
+                    const trackName = data.item.name;
+                    const artistNames = data.item.artists.map(artist => artist.name).join(', ');
+                    const albumArt = data.item.album.images[0].url;
+                    nowPlaying.innerHTML = `
+                        <p><strong>${trackName}</strong> by ${artistNames}</p>
+                        <img src="${albumArt}" width="100" alt="Album Art">
+                    `;
+                } else {
+                    nowPlaying.textContent = 'No track currently playing.';
+                }
             } catch (err) {
-                result.textContent = 'Error uploading file: ' + err.message;
+                document.getElementById('nowPlaying').textContent = 'Error fetching Spotify data: ' + err.message;
             }
-        });
+        }
     </script>
 </body>
 </html>
