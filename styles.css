@@ -1,77 +1,103 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Krynet | AI Communication Platform</title>
-    <link rel="stylesheet" href="style.css"/>
-</head>
-<body>
-    <header class="site-header">
-        <div class="container">
-            <h1 class="logo">Krynet</h1>
-            <nav>
-                <ul>
-                    <li><a href="#intro">Intro</a></li>
-                    <li><a href="#features">Features</a></li>
-                    <li><a href="#spotify">Spotify</a></li>
-                    <li><a href="#antivirus">Upload</a></li>
-                    <li><a href="#upscaling">Upscaling</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+/* Krynet Style - Modern, Dark UI with Light Accents */
 
-    <main class="container">
-        <section id="intro" class="card">
-            <h2>Welcome to Krynet</h2>
-            <p>The future of communication. Fast, secure, AI-moderated, and free from bloat.</p>
-        </section>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #111;
+    color: #eee;
+    line-height: 1.6;
+}
 
-        <section id="features" class="card">
-            <h2>Features</h2>
-            <ul class="features-list">
-                <li>⚡ Instant Communication</li>
-                <li>🤖 AI Moderation Engine</li>
-                <li>🛡️ Built-in Antivirus Scanner</li>
-                <li>🎧 Spotify Integration (Music Support Only)</li>
-                <li>🎮 Steam Store Integration</li>
-                <li>🔒 HEIF, HE-AAC, AVIF Only</li>
-                <li>📁 Media Embeds with AVIF/HEIF/HE-AAC</li>
-                <li>📡 100% API-Driven Infrastructure</li>
-                <li>📺 AI-Based Video Upscaling (GPU-aware)</li>
-                <li>🧠 All uploads are AI-scanned, format-verified, and deleted if malicious</li>
-            </ul>
-        </section>
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: auto;
+    padding: 20px 0;
+}
 
-        <section id="spotify" class="card">
-            <h2>Spotify Now Playing</h2>
-            <button id="loginSpotify">Login with Spotify</button>
-            <div id="nowPlaying" class="now-playing"></div>
-        </section>
+header.site-header {
+    background: #1a1a1a;
+    padding: 20px 0;
+    border-bottom: 1px solid #333;
+}
 
-        <section id="antivirus" class="card">
-            <h2>Upload File for AI Scan</h2>
-            <form id="uploadForm">
-                <input type="file" id="fileInput" required />
-                <button type="submit">Upload & Scan</button>
-            </form>
-            <pre id="uploadResult"></pre>
-        </section>
+.logo {
+    font-size: 2rem;
+    color: #00f2ff;
+    margin: 0;
+}
 
-        <section id="upscaling" class="card">
-            <h2>Video Upscaling</h2>
-            <p>GPU Detected: <span id="gpuVendor">Detecting...</span></p>
-            <p><strong>Note:</strong> AI video enhancement only works with NVIDIA, AMD, or Intel GPUs.</p>
-        </section>
-    </main>
+nav ul {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
 
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Krynet. Powered by APIs. Inspired by progress.</p>
-        </div>
-    </footer>
+nav ul li a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
 
-    <script src="script.js"></script>
-</body>
-</html>
+nav ul li a:hover {
+    color: #00f2ff;
+}
+
+.card {
+    background: #1b1b1b;
+    border: 1px solid #333;
+    border-radius: 10px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 10px #000;
+}
+
+.features-list li {
+    margin: 10px 0;
+    font-size: 1rem;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: #00f2ff;
+    color: #111;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+button:hover {
+    background-color: #00c9d8;
+}
+
+input[type="file"] {
+    display: block;
+    margin: 10px 0;
+    padding: 10px;
+    background: #2a2a2a;
+    border: 1px solid #444;
+    border-radius: 5px;
+    color: #ccc;
+}
+
+pre {
+    background: #1e1e1e;
+    padding: 10px;
+    border-radius: 5px;
+    overflow-x: auto;
+    font-size: 0.9rem;
+    color: #0f0;
+}
+
+footer {
+    background: #1a1a1a;
+    color: #555;
+    text-align: center;
+    padding: 20px;
+    border-top: 1px solid #333;
+    font-size: 0.9rem;
+}
