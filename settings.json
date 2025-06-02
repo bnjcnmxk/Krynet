@@ -1,29 +1,29 @@
 {
   "user_account_settings": {
     "profile": {
-      "display_name": "string",
-      "avatar_url": "string",
-      "status_message": "string",
-      "theme": "light" | "dark" | "system"
+      "display_name": "4zx16",
+      "avatar_url": "https://cdn.krynet.com/avatars/4zx16.png",
+      "status_message": "Grinding code, no time for bugs.",
+      "theme": "dark"
     },
     "security": {
       "mfa_enabled": true,
-      "mfa_method": "TOTP" | "SMS" | "Email",
-      "password_last_changed": "ISO8601 timestamp",
+      "mfa_method": "TOTP",
+      "password_last_changed": "2025-06-01T14:30:00Z",
       "session_timeout_minutes": 60,
       "trusted_devices": [
         {
-          "device_id": "string",
-          "device_name": "string",
-          "last_used": "ISO8601 timestamp"
+          "device_id": "device-abc123",
+          "device_name": "Work Laptop",
+          "last_used": "2025-06-01T18:00:00Z"
         }
       ]
     },
     "privacy": {
-      "profile_visibility": "public" | "friends_only" | "private",
+      "profile_visibility": "friends_only",
       "message_read_receipts": true,
-      "last_seen_visibility": "everyone" | "friends_only" | "nobody",
-      "blocked_users": ["user_id1", "user_id2"]
+      "last_seen_visibility": "nobody",
+      "blocked_users": ["user1234", "user5678"]
     },
     "notifications": {
       "email_notifications": true,
@@ -32,8 +32,8 @@
       "message_notifications": true,
       "do_not_disturb_schedule": {
         "enabled": false,
-        "start_time": "HH:mm",
-        "end_time": "HH:mm"
+        "start_time": "22:00",
+        "end_time": "07:00"
       }
     }
   }
