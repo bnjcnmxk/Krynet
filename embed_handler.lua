@@ -1,45 +1,46 @@
--- File: embed_handler.lua
-
 local cjson = require("cjson")
+local upload_dir = "/var/www/krynet/uploads/"
 
--- Allowed MIME types
-local allowed_types = {
-  ["audio/aac"] = true,        -- .he-aac (treated as .aac)
-  ["image/avif"] = true,       -- .avif
-  ["image/heif"] = true,       -- .heif
-  ["video/heif"] = true        -- .heif for video content
+-- Allowed MIME types + extensions
+local allowed_mime = {
+  ["audio/aac"] = ".he-aac",
+  ["image/avif"] = ".avif",
+  ["image/heif"] = ".heif",
+  ["video/heif"] = ".heif"
 }
 
--- Helper to check file type
-local function is_allowed_type(mime_type)
-  return allowed_types[mime_type] or false
+local function get_extension(mime)
+  return allowed_mime[mime]
 end
 
--- Endpoint for embedding file metadata (or rendering)
-local function handle_file_upload(req)
+return function(req)
   local file = req.params.file
-  local file_type = req.headers["Content-Type"]
+  local mime = req.headers["Content-Type"]
 
-  if not file or not file_type then
-    return { status = 400, body = "Missing file or content type." }
+  if not file or not mime then
+    return { status = 400, body = cjson.encode({ message = "File or MIME type missing." }) }
   end
 
-  if not is_allowed_type(file_type) then
-    return { status = 415, body = "Unsupported media type." }
+  if not allowed_mime[mime] then
+    return { status = 415, body = cjson.encode({ message = "Unsupported file type." }) }
   end
 
-  -- Save or process file here (this example just returns metadata)
-  local metadata = {
-    filename = file.filename,
-    mime_type = file_type,
-    embed_code = string.format("<embed src='%s' type='%s' />", file.filename, file_type)
-  }
+  local ext = get_extension(mime)
+  local filename = os.date("%Y%m%d_%H%M%S") .. ext
+  local path = upload_dir .. filename
+
+  -- Save file
+  local f = io.open(path, "wb")
+  f:write(file.content)
+  f:close()
 
   return {
     status = 200,
     headers = { ["Content-Type"] = "application/json" },
-    body = cjson.encode(metadata)
+    body = cjson.encode({
+      filename = "/uploads/" .. filename,
+      mime_type = mime,
+      embed_url = "/uploads/" .. filename
+    })
   }
 end
-
-return handle_file_upload
