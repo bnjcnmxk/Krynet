@@ -1,0 +1,40 @@
+{
+  "user_account_settings": {
+    "profile": {
+      "display_name": "string",
+      "avatar_url": "string",
+      "status_message": "string",
+      "theme": "light" | "dark" | "system"
+    },
+    "security": {
+      "mfa_enabled": true,
+      "mfa_method": "TOTP" | "SMS" | "Email",
+      "password_last_changed": "ISO8601 timestamp",
+      "session_timeout_minutes": 60,
+      "trusted_devices": [
+        {
+          "device_id": "string",
+          "device_name": "string",
+          "last_used": "ISO8601 timestamp"
+        }
+      ]
+    },
+    "privacy": {
+      "profile_visibility": "public" | "friends_only" | "private",
+      "message_read_receipts": true,
+      "last_seen_visibility": "everyone" | "friends_only" | "nobody",
+      "blocked_users": ["user_id1", "user_id2"]
+    },
+    "notifications": {
+      "email_notifications": true,
+      "push_notifications": true,
+      "vc_activity_alerts": true,
+      "message_notifications": true,
+      "do_not_disturb_schedule": {
+        "enabled": false,
+        "start_time": "HH:mm",
+        "end_time": "HH:mm"
+      }
+    }
+  }
+}
