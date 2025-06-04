@@ -140,14 +140,41 @@ function login() {
   const user = document.getElementById('username').value;
   const pass = document.getElementById('password').value;
 
-if ((user === "admin" && pass === "password") || (user === "test" && pass === "password")) {
-  // login success
-}
-) {
-  isLoggedIn = true;
-  alert("Login successful!");
-  document.getElementById('loginModal').classList.add('hidden');
-  window.location.href = "https://example.com";
-} else {
-  alert("Incorrect username or password.");
-}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login</title>
+</head>
+<body>
+  <div id="loginModal">
+    <input type="text" id="usernameInput" placeholder="Username" />
+    <input type="password" id="passwordInput" placeholder="Password" />
+    <button onclick="login()">Login</button>
+  </div>
+
+  <script>
+    // Local table using separate arrays
+    const table = {
+      usernames: ["admin", "test"],
+      passwords: ["password", "password"] // must match positionally
+    };
+
+    function login() {
+      const username = document.getElementById("usernameInput").value.trim();
+      const password = document.getElementById("passwordInput").value.trim();
+
+      // Look for the username in the list
+      const index = table.usernames.indexOf(username);
+
+      // Check if found and the password matches at the same index
+      if (index !== -1 && table.passwords[index] === password) {
+        alert("Login successful!");
+        document.getElementById('loginModal').classList.add('hidden');
+        window.location.href = "https://example.com";
+      } else {
+        alert("Incorrect username or password.");
+      }
+    }
+  </script>
+</body>
+</html>
