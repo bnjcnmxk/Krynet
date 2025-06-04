@@ -140,9 +140,8 @@ function login() {
   const user = document.getElementById('username').value;
   const pass = document.getElementById('password').value;
 
-      // Replace with real authentication logic
 if (
-  (user === "admin" && pass === "password") ||
+  (user === "admin" && pass === "password"),
   (user === "test" && pass === "password")
 ) {
   isLoggedIn = true;
