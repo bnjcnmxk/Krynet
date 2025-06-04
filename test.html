@@ -140,23 +140,17 @@ function login() {
   const user = document.getElementById('username').value;
   const pass = document.getElementById('password').value;
 
-  // List of allowed credentials
-  const validUsers = [
-    { username: "7zh14", password: "slashingmonkeys" },
-    { username: "4zx16", password: "password" },
-    { username: "guest", password: "letmein" },
-    { username: "testuser", password: "test123" }
-  ];
-
-  // Check if the credentials match any valid user
-  const found = validUsers.find(u => u.username === user && u.password === pass);
-
-  if (found) {
-    isLoggedIn = true;
-    alert("Login successful!");
-    document.getElementById('loginModal').classList.add('hidden');
-    window.location.href = "https://example.com"; // You can customize this per user too
-  } else {
-    alert("Incorrect username or password.");
-  }
-}
+      // Replace with real authentication logic
+      if (user === "admin" && pass === "password") { username: "newuser", password: "newpass" }
+ {
+        isLoggedIn = true;
+        alert("Login successful!");
+        document.getElementById('loginModal').classList.add('hidden');
+        window.location.href = "https://example.com";
+      } else {
+        alert("Incorrect username or password.");
+      }
+    }
+  </script>
+</body>
+</html>
