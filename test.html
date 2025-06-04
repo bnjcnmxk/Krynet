@@ -141,12 +141,10 @@ function login() {
   const pass = document.getElementById('password').value;
 
 <script>
-  const validUsers = {
-    admin: "password",
-    moderator: "mod123",
-    guest: "letmein",
-    testuser: "test123"
-  };
+  const users = [
+    { username: "admin", password: "password" },
+    { username: "test", password: "1234" }
+  ];
 
   let isLoggedIn = false;
 
@@ -154,11 +152,13 @@ function login() {
     const user = document.getElementById('username').value;
     const pass = document.getElementById('password').value;
 
-    if (validUsers[user] && validUsers[user] === pass) {
+    const validUser = users.find(u => u.username === user && u.password === pass);
+
+    if (validUser) {
       isLoggedIn = true;
       alert("Login successful!");
       document.getElementById('loginModal').classList.add('hidden');
-      window.location.href = "https://example.com";
+      window.location.href = "https://example.com"; // replace with actual URL
     } else {
       alert("Incorrect username or password.");
     }
