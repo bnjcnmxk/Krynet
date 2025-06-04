@@ -140,16 +140,27 @@ function login() {
   const user = document.getElementById('username').value;
   const pass = document.getElementById('password').value;
 
-      // Replace with real authentication logic
-      if (user === "admin" && pass === "password") {
-        isLoggedIn = true;
-        alert("Login successful!");
-        document.getElementById('loginModal').classList.add('hidden');
-        window.location.href = "https://example.com";
-      } else {
-        alert("Incorrect username or password.");
-      }
+<script>
+  const validUsers = {
+    admin: "password",
+    moderator: "mod123",
+    guest: "letmein",
+    testuser: "test123"
+  };
+
+  let isLoggedIn = false;
+
+  function login() {
+    const user = document.getElementById('username').value;
+    const pass = document.getElementById('password').value;
+
+    if (validUsers[user] && validUsers[user] === pass) {
+      isLoggedIn = true;
+      alert("Login successful!");
+      document.getElementById('loginModal').classList.add('hidden');
+      window.location.href = "https://example.com";
+    } else {
+      alert("Incorrect username or password.");
     }
-  </script>
-</body>
-</html>
+  }
+</script>
