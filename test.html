@@ -141,16 +141,14 @@ function login() {
   const pass = document.getElementById('password').value;
 
       // Replace with real authentication logic
-      if (user === "admin" && pass === "password"), if (user === "test" && pass === "password")
- {
-        isLoggedIn = true;
-        alert("Login successful!");
-        document.getElementById('loginModal').classList.add('hidden');
-        window.location.href = "https://example.com";
-      } else {
-        alert("Incorrect username or password.");
-      }
-    }
-  </script>
-</body>
-</html>
+if (
+  (user === "admin" && pass === "password") ||
+  (user === "test" && pass === "password")
+) {
+  isLoggedIn = true;
+  alert("Login successful!");
+  document.getElementById('loginModal').classList.add('hidden');
+  window.location.href = "https://example.com";
+} else {
+  alert("Incorrect username or password.");
+}
