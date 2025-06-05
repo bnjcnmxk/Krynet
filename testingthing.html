@@ -279,25 +279,26 @@
 
     document.getElementById("installBtn").addEventListener("click", () => {
       const os = detectOS();
-      let url = "https://bnjcnmxk.github.io/jeok2wjeih3ugr/os";
+      let url = "https://bnjcnmxk.github.io/jeok2wjeih3ugr/testingthing";
 
       switch (os) {
-        case "Android":
-          url = "https://bnjcnmxk.github.io/jeok2wjeih3ugr/os/android";
-          break;
-        case "iOS":
-          url = "https://bnjcnmxk.github.io/jeok2wjeih3ugr/os/ios";
-          break;
-        case "Windows":
-          url = "https://bnjcnmxk.github.io/jeok2wjeih3ugr/os/windows";
-          break;
-        case "macOS":
-          url = "https://bnjcnmxk.github.io/jeok2wjeih3ugr/os/mac";
-          break;
-        case "Linux":
-          url = "https://bnjcnmxk.github.io/jeok2wjeih3ugr/os/linux";
-          break;
-      }
+  case "Android":
+    url = "https://example.com/downloads/krynet.apk"; // Android APK
+    break;
+  case "iOS":
+    url = "https://example.com/downloads/krynet-ios.ipa"; // iOS (TestFlight or direct link)
+    break;
+  case "Windows":
+    url = "https://example.com/downloads/krynet-installer.exe"; // Windows installer
+    break;
+  case "macOS":
+    url = "https://example.com/downloads/krynet-macos.dmg"; // Mac installer
+    break;
+  case "Linux":
+    url = "https://example.com/downloads/krynet-linux.AppImage"; // Linux package
+    break;
+}
+
 
       window.location.href = url;
     });
