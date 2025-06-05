@@ -281,38 +281,50 @@
       const os = detectOS();
       let url = "https://bnjcnmxk.github.io/jeok2wjeih3ugr/testingthing";
 
-document.getElementById("installBtn").addEventListener("click", () => {
-  const os = detectOS();
-  let url = "";
+<script>
+  document.getElementById("installBtn").addEventListener("click", () => {
+    const os = detectOS();
+    let url = "";
 
-  switch (os) {
-    case "Android":
-      url = "https://example.com/downloads/krynet.apk";
-      break;
-    case "iOS":
-      url = "https://example.com/downloads/krynet-ios.ipa";
-      break;
-    case "Windows":
-      url = "https://example.com/downloads/krynet-installer.exe";
-      break;
-    case "macOS":
-      url = "https://example.com/downloads/krynet-macos.dmg";
-      break;
-    case "Linux":
-      url = "https://example.com/downloads/krynet-linux.AppImage";
-      break;
-    default:
-      alert("⚠️ Your operating system could not be detected or is not supported.");
-      return;
+    switch (os) {
+      case "Android":
+        url = "https://example.com/downloads/krynet.apk";
+        break;
+      case "iOS":
+        url = "https://example.com/downloads/krynet-ios.ipa";
+        break;
+      case "Windows":
+        url = "https://example.com/downloads/krynet-installer.exe";
+        break;
+      case "macOS":
+        url = "https://example.com/downloads/krynet-macos.dmg";
+        break;
+      case "Linux":
+        url = "https://example.com/downloads/krynet-linux.AppImage";
+        break;
+      default:
+        alert("⚠️ Your operating system could not be detected or is not supported.");
+        return; // Stop here if OS is not recognized
+    }
+
+    const proceed = confirm("You are about to leave Krynet to download the app for your OS.\n\nDo you want to continue?");
+    if (proceed) {
+      window.location.href = url;
+    }
+  });
+
+  function detectOS() {
+    const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+    if (/android/i.test(userAgent)) return "Android";
+    if (/iPad|iPhone|iPod/.test(userAgent)) return "iOS";
+    if (/Win/i.test(userAgent)) return "Windows";
+    if (/Mac/i.test(userAgent)) return "macOS";
+    if (/Linux/.test(userAgent)) return "Linux";
+
+    return "Unknown";
   }
-
-  const confirmLeave = confirm("You are now leaving Krynet to download the app for your OS.\n\nDo you want to continue?");
-  if (confirmLeave) {
-    window.location.href = url;
-  }
-});
-
-
+</script>
 
       window.location.href = url;
     });
