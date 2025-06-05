@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Krynet – Anonymous & Secure</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" />
+
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Inter', sans-serif;
+      background-color: #0a0a0a;
+      color: #fff;
+    }
+
+    header {
+      background-color: #1a0000;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    }
+
+    nav a {
+      color: #fff;
+      margin-left: 1rem;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.2s ease;
+    }
+
+    nav a:hover {
+      color: #ff4d4d;
+    }
+
+    .main {
+      text-align: center;
+      padding: 5rem 2rem;
+    }
+
+    .main h2 {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      color: #ff4d4d;
+    }
+
+    .main p {
+      color: #ccc;
+      max-width: 600px;
+      margin: 0 auto 2rem;
+      font-size: 1.1rem;
+    }
+
+    .join-btn {
+      background-color: #ff1a1a;
+      color: white;
+      border: none;
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+      border-radius: 1.5rem;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+    }
+
+    .join-btn:hover {
+      background-color: #cc0000;
+    }
+
+    .join-btn:focus {
+      outline: 2px solid #ff4d4d;
+      outline-offset: 2px;
+    }
+
+    .features {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1.5rem;
+      padding: 2rem;
+      max-width: 1000px;
+      margin: 0 auto;
+    }
+
+    .card {
+      background-color: #1a0000;
+      border: 1px solid #400000;
+      padding: 2rem;
+      text-align: center;
+      border-radius: 1rem;
+    }
+
+    .card h3 {
+      margin-bottom: 0.5rem;
+      font-size: 1.3rem;
+      color: #ff4d4d;
+    }
+
+    .card p {
+      color: #bbb;
+    }
+
+    footer {
+      text-align: center;
+      color: #888;
+      padding: 2rem;
+      border-top: 1px solid #400000;
+      background-color: #0a0a0a;
+    }
+
+    /* Modal styles */
+    .modal {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background-color: rgba(0, 0, 0, 0.7);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 1000;
+    }
+
+    .modal-content {
+      background-color: #1a1a1a;
+      padding: 30px;
+      border-radius: 10px;
+      width: 300px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.5);
+      text-align: center;
+    }
+
+    .modal-content h2 {
+      margin-bottom: 20px;
+      color: #fff;
+    }
+
+    .modal-content input {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+    }
+
+    .modal-content button {
+      width: 100%;
+      padding: 10px;
+      font-size: 1em;
+      border: none;
+      border-radius: 5px;
+      background-color: #ff4d4d;
+      color: white;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1 style="color:#ff4d4d">Krynet</h1>
+    <nav>
+      <a href="#">Home</a>
+      <a href="https://bnjcnmxk.github.io/jeok2wjeih3ugr/">Features</a>
+      <a href="https://bnjcnmxk.github.io/jeok2wjeih3ugr/securitysite">Security</a>
+      <a href="https://bnjcnmxk.github.io/jeok2wjeih3ugr/test">Login</a>
+    </nav>
+  </header>
+
+  <main class="main">
+    <h2>Encrypted. Anonymous. Yours.</h2>
+    <p>
+      Krynet is your secure space for communication — no names, no tracking, no nonsense.
+      Join the most private and anonymous server built with military-grade encryption.
+    </p>
+    <button class="join-btn" id="joinNow">Join Now</button>
+  </main>
+
+  <section class="features">
+    <div class="card">
+      <h3>True Anonymity</h3>
+      <p>no history — just raw encrypted conversation. You are only what you type.</p>
+    </div>
+    <div class="card">
+      <h3>Heavy Encryption</h3>
+      <p>Every message is end-to-end encrypted with cutting-edge security.</p>
+    </div>
+    <div class="card">
+      <h3>No Data Stored</h3>
+      <p>Your data doesn’t live here. Once it's read, it's gone. No backups, no traces.</p>
+    </div>
+  </section>
+
+  <footer>
+    © 2025 Krynet. No tracking. No compromise.
+  </footer>
+
+  <!-- Modal -->
+  <div class="modal" id="loginModal">
+    <div class="modal-content">
+      <h2>Login to Use Web</h2>
+      <input type="text" id="username" placeholder="Username" />
+      <input type="password" id="password" placeholder="Password" />
+      <button onclick="login()">Login</button>
+    </div>
+  </div>
+
+  <script>
+    const users = [
+      { username: "4zx16", password: "InKryNet I trust" },
+      { username: "7zh14", password: "&7k#9@X!2p$Q8m%zT3L^aV^" },
+      { username: "admin", password: "password" }
+    ];
+
+    let isLoggedIn = false;
+
+    document.getElementById("joinNow").addEventListener("click", () => {
+      document.getElementById("loginModal").style.display = "flex";
+    });
+
+    function login() {
+      const user = document.getElementById('username').value.trim();
+      const pass = document.getElementById('password').value.trim();
+      const validUser = users.find(u => u.username === user && u.password === pass);
+
+      if (validUser) {
+        isLoggedIn = true;
+        alert("Login successful!");
+        document.getElementById('loginModal').style.display = "none";
+        window.location.href = "https://krynet.ai/web"; // ✅ Set your real URL here
+      } else {
+        alert("Incorrect username or password.");
+        document.getElementById('password').value = "";
+      }
+    }
+  </script>
+</body>
+</html>
