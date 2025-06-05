@@ -6,6 +6,7 @@
   <title>Krynet - Privacy Chat for Gamers</title>
   <link rel="icon" href="logo.png" type="image/x-icon" />
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+
   <style>
     * {
       box-sizing: border-box;
@@ -38,24 +39,25 @@
       cursor: pointer;
       background-color: transparent;
       transition: 0.3s ease;
+      border: 2px solid;
     }
 
-    .install {
-      border: 2px solid #ff4d4d;
+    .button.install {
+      border-color: #ff4d4d;
       color: #ff4d4d;
     }
 
-    .install:hover {
+    .button.install:hover {
       background-color: #ff4d4d;
       color: #fff;
     }
 
-    .web {
-      border: 2px solid #00bcd4;
+    .button.web {
+      border-color: #00bcd4;
       color: #00bcd4;
     }
 
-    .web:hover {
+    .button.web:hover {
       background-color: #00bcd4;
       color: #fff;
     }
@@ -71,65 +73,24 @@
     <h1>Welcome to Krynet</h1>
     <p>A privacy-focused chat platform made for gamers.</p>
     <div class="buttons">
-      <button class="button install">Install App</button>
+      <button class="button install" id="downloadBtn">Install App</button>
       <button class="button web" onclick="window.location.href='https://bnjcnmxk.github.io/Krynet/test.html'">Use Web</button>
     </div>
     <div class="info">
       Krynet is a secure, community-first chatting service built for gamers.
     </div>
   </div>
-</body>
-</html>
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <style>
-    body {
-      background: #0a0a0a;
-      color: white;
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      text-align: center;
-      padding: 1rem;
-    }
-    #downloadBtn {
-      padding: 1rem 2rem;
-      font-size: 1.2rem;
-      background: #ff1a1a;
-      border: none;
-      border-radius: 12px;
-      color: white;
-      cursor: pointer;
-      transition: background 0.3s ease;
-    }
-    #downloadBtn:hover {
-      background: #cc0000;
-    }
-  </style>
-</head>
-<body>
-
-  <button id="downloadBtn">Download Now</button>
 
   <script>
     const btn = document.getElementById('downloadBtn');
     const ua = navigator.userAgent.toLowerCase();
 
-    // OS detection
     const isWindows = ua.includes('windows');
     const isAndroid = ua.includes('android');
-    const isLinux = ua.includes('linux');
-    const isMac = ua.includes('macintosh') || ua.includes('mac os');
     const isIOS = /iphone|ipad|ipod/.test(ua);
+    const isMac = ua.includes('macintosh') || ua.includes('mac os');
+    const isLinux = ua.includes('linux') && !isAndroid;
 
-    // Download URLs by OS
     const downloadLinks = {
       windows: 'https://example.com/download/windows-installer.exe',
       android: 'https://example.com/download/android-app.apk',
@@ -146,17 +107,17 @@
         window.location.href = downloadLinks.windows;
       } else if (isAndroid) {
         window.location.href = downloadLinks.android;
-      } else if (isLinux) {
-        window.location.href = downloadLinks.linux;
-      } else if (isMac) {
-        window.location.href = downloadLinks.mac;
       } else if (isIOS) {
         window.location.href = downloadLinks.ios;
+      } else if (isMac) {
+        window.location.href = downloadLinks.mac;
+      } else if (isLinux) {
+        window.location.href = downloadLinks.linux;
       } else {
         window.location.href = downloadLinks.unsupported;
       }
     });
   </script>
-
 </body>
 </html>
+
