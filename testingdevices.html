@@ -2,51 +2,101 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Download by OS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Krynet - Privacy Chat for Gamers</title>
+  <link rel="icon" href="logo.png" type="image/x-icon" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+
   <style>
-    body {
-      background: #0a0a0a;
-      color: white;
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      height: 100vh;
-      margin: 0;
-      text-align: center;
-      padding: 1rem;
+    * {
+      box-sizing: border-box;
     }
+
+    body {
+      font-family: 'Orbitron', sans-serif;
+      background-color: #111;
+      color: #fff;
+      margin: 0;
+      padding: 40px;
+      text-align: center;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: auto;
+    }
+
+    .buttons {
+      margin: 30px 0;
+    }
+
+    /* Replacing .install button styles with the new style */
     #downloadBtn {
-      padding: 1rem 2rem;
-      font-size: 1.2rem;
-      background: #ff1a1a;
-      border: none;
+      font-family: inherit;
+      padding: 12px 24px;
+      font-size: 1rem;
+      margin: 10px;
       border-radius: 12px;
-      color: white;
       cursor: pointer;
+      background-color: #ff1a1a;
+      border: none;
+      color: white;
       transition: background 0.3s ease;
     }
+
     #downloadBtn:hover {
-      background: #cc0000;
+      background-color: #cc0000;
+    }
+
+    /* Keep the web button styles */
+    .button.web {
+      border: 2px solid #00bcd4;
+      color: #00bcd4;
+      background-color: transparent;
+      transition: 0.3s ease;
+      padding: 12px 24px;
+      font-size: 1rem;
+      margin: 10px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    .button.web:hover {
+      background-color: #00bcd4;
+      color: #fff;
+    }
+
+    .info {
+      font-size: 0.9rem;
+      margin-top: 20px;
     }
   </style>
 </head>
 <body>
-
-  <button id="downloadBtn">Download Now</button>
+  <div class="container">
+    <h1>Welcome to Krynet</h1>
+    <p>A privacy-focused chat platform made for gamers.</p>
+    <div class="buttons">
+      <!-- Changed this button to id=downloadBtn -->
+      <button id="downloadBtn">Install App</button>
+      <button class="button web" onclick="window.location.href='https://bnjcnmxk.github.io/Krynet/test.html'">Use Web</button>
+    </div>
+    <div class="info">
+      Krynet is a secure, community-first chatting service built for gamers.
+    </div>
+  </div>
 
   <script>
     const btn = document.getElementById('downloadBtn');
     const ua = navigator.userAgent.toLowerCase();
 
-    // OS detection
+    // OS detection (order matters)
     const isWindows = ua.includes('windows');
     const isAndroid = ua.includes('android');
-    const isLinux = ua.includes('linux');
-    const isMac = ua.includes('macintosh') || ua.includes('mac os');
     const isIOS = /iphone|ipad|ipod/.test(ua);
+    const isMac = ua.includes('macintosh') || ua.includes('mac os');
+    const isLinux = ua.includes('linux') && !isAndroid;
 
     // Download URLs by OS
     const downloadLinks = {
@@ -65,17 +115,16 @@
         window.location.href = downloadLinks.windows;
       } else if (isAndroid) {
         window.location.href = downloadLinks.android;
-      } else if (isLinux) {
-        window.location.href = downloadLinks.linux;
-      } else if (isMac) {
-        window.location.href = downloadLinks.mac;
       } else if (isIOS) {
         window.location.href = downloadLinks.ios;
+      } else if (isMac) {
+        window.location.href = downloadLinks.mac;
+      } else if (isLinux) {
+        window.location.href = downloadLinks.linux;
       } else {
         window.location.href = downloadLinks.unsupported;
       }
     });
   </script>
-
 </body>
 </html>
