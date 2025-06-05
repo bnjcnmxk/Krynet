@@ -141,26 +141,27 @@ function login() {
   const pass = document.getElementById('password').value;
 
 <script>
-  const users = [
-    { username: "admin", password: "password" },
-    { username: "test", password: "1234" }
-  ];
+const users = [
+      { username: "4zx16", password: "UmmmOkidk InKryNet I trust" },
+      { username: "7zh14", password: "&7k#9@X12p$Q8m%zT3L^" },
+    ];
 
-  let isLoggedIn = false;
+    let isLoggedIn = false;
 
-  function login() {
-    const user = document.getElementById('username').value;
-    const pass = document.getElementById('password').value;
+    function login() {
+      const user = document.getElementById('username').value.trim();
+      const pass = document.getElementById('password').value.trim();
 
-    const validUser = users.find(u => u.username === user && u.password === pass);
+      const validUser = users.find(u => u.username === user && u.password === pass);
 
-    if (validUser) {
-      isLoggedIn = true;
-      alert("Login successful!");
-      document.getElementById('loginModal').classList.add('hidden');
-      window.location.href = "https://example.com"; // replace with actual URL
-    } else {
-      alert("Incorrect username or password.");
+      if (validUser) {
+        isLoggedIn = true;
+        alert("Login successful!");
+        document.getElementById('loginModal').classList.add('hidden');
+        window.location.href = "https://example.com";
+      } else {
+        alert("Incorrect username or password.");
+        document.getElementById('password').value = "";
+      }
     }
-  }
 </script>
