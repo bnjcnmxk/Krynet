@@ -58,7 +58,15 @@
       font-size: 1.1rem;
     }
 
-    .join-btn {
+    .button-row {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+
+    .join-btn,
+    .download-btn {
       background-color: #ff1a1a;
       color: white;
       border: none;
@@ -69,11 +77,13 @@
       transition: background-color 0.2s ease;
     }
 
-    .join-btn:hover {
+    .join-btn:hover,
+    .download-btn:hover {
       background-color: #cc0000;
     }
 
-    .join-btn:focus {
+    .join-btn:focus,
+    .download-btn:focus {
       outline: 2px solid #ff4d4d;
       outline-offset: 2px;
     }
@@ -131,7 +141,10 @@
       Krynet is your secure space for communication — no names, no tracking, no nonsense.
       Join the most private and anonymous server built with military-grade encryption.
     </p>
-    <button class="join-btn">Join Now</button>
+    <div class="button-row">
+      <button class="join-btn" onclick="window.location.href='https://bnjcnmxk.github.io/jeok2wjeih3ugr/test'">Join Now</button>
+      <button class="download-btn" id="downloadBtn">Download App</button>
+    </div>
   </main>
 
   <section class="features">
@@ -154,11 +167,41 @@
   </footer>
 
   <script>
-    // Redirect the Join Now button to your desired URL
-    document.querySelector('.join-btn').addEventListener('click', () => {
-      window.location.href = 'https://bnjcnmxk.github.io/jeok2wjeih3ugr/test';
+    const btn = document.getElementById('downloadBtn');
+    const ua = navigator.userAgent.toLowerCase();
+
+    const isWindows = ua.includes('windows');
+    const isAndroid = ua.includes('android');
+    const isIOS = /iphone|ipad|ipod/.test(ua);
+    const isMac = ua.includes('macintosh') || ua.includes('mac os');
+    const isLinux = ua.includes('linux') && !isAndroid;
+
+    const downloadLinks = {
+      windows: 'https://example.com/download/windows-installer.exe',
+      android: 'https://example.com/download/android-app.apk',
+      linux: 'https://example.com/download/linux-installer.sh',
+      mac: 'https://example.com/download/mac-installer.dmg',
+      ios: 'https://example.com/download/ios-app.ipa',
+      unsupported: 'https://example.com/unsupported-device'
+    };
+
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+
+      if (isWindows) {
+        window.location.href = downloadLinks.windows;
+      } else if (isAndroid) {
+        window.location.href = downloadLinks.android;
+      } else if (isIOS) {
+        window.location.href = downloadLinks.ios;
+      } else if (isMac) {
+        window.location.href = downloadLinks.mac;
+      } else if (isLinux) {
+        window.location.href = downloadLinks.linux;
+      } else {
+        window.location.href = downloadLinks.unsupported;
+      }
     });
   </script>
 </body>
 </html>
-
