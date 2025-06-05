@@ -197,7 +197,7 @@
       <a href="#">Home</a>
       <a href="https://bnjcnmxk.github.io/jeok2wjeih3ugr/Site.html">Features</a>
       <a href="https://bnjcnmxk.github.io/jeok2wjeih3ugr/securitysite">Compliance</a>
-      <button class="nav-login" id="joinNow">Login</button>
+      <button class="nav-login" id="loginBtn">Login</button>
     </nav>
   </header>
 
@@ -269,12 +269,21 @@
     const agreeBtn = document.getElementById("agreeBtn");
     const disagreeBtn = document.getElementById("disagreeBtn");
 
-    const allJoinButtons = document.querySelectorAll("#joinNow");
-    allJoinButtons.forEach(btn => {
-      btn.addEventListener("click", () => {
-        modal.style.display = "flex";
-      });
-    });
+const joinNowBtn = document.getElementById("joinNow");
+const loginBtn = document.querySelector(".nav-login"); // or use ID if you have one
+
+if (joinNowBtn) {
+  joinNowBtn.addEventListener("click", () => {
+    modal.style.display = "flex";
+  });
+}
+
+if (loginBtn) {
+  loginBtn.addEventListener("click", () => {
+    modal.style.display = "flex";
+  });
+}
+
 
     window.addEventListener("click", function (e) {
       if (e.target === modal) {
