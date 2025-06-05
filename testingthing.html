@@ -193,7 +193,7 @@
       Join the most private and anonymous server built with military-grade encryption.
     </p>
     <div class="button-group">
-      <button class="button" onclick="window.location.href='https://bnjcnmxk.github.io/jeok2wjeih3ugr/os'">Install App</button>
+      <button class="button" id="installBtn">Install App</button>
       <button class="button" id="joinNow">Join Now</button>
     </div>
   </main>
@@ -227,15 +227,15 @@
     </div>
   </div>
 
+  <!-- Scripts -->
   <script>
     const users = [
       { username: "4zx16", password: "InKryNet I trust" },
       { username: "7zh14", password: "&7k#9@X!2p$Q8m%zT3L^aV^" },
-      { username: "admin", password: "password" } // 👈 demo only
+      { username: "admin", password: "password" } // demo only
     ];
 
     let isLoggedIn = false;
-
     const modal = document.getElementById("loginModal");
 
     document.getElementById("joinNow").addEventListener("click", () => {
@@ -263,7 +263,44 @@
         document.getElementById('password').value = "";
       }
     }
+
+    // OS Detection for Install Button
+    function detectOS() {
+      const userAgent = navigator.userAgent || navigator.vendor || window.opera;
+
+      if (/android/i.test(userAgent)) return "Android";
+      if (/iPad|iPhone|iPod/.test(userAgent)) return "iOS";
+      if (/Win/i.test(userAgent)) return "Windows";
+      if (/Mac/i.test(userAgent)) return "macOS";
+      if (/Linux/.test(userAgent)) return "Linux";
+
+      return "Unknown";
+    }
+
+    document.getElementById("installBtn").addEventListener("click", () => {
+      const os = detectOS();
+      let url = "https://bnjcnmxk.github.io/jeok2wjeih3ugr/os";
+
+      switch (os) {
+        case "Android":
+          url = "https://bnjcnmxk.github.io/jeok2wjeih3ugr/os/android";
+          break;
+        case "iOS":
+          url = "https://bnjcnmxk.github.io/jeok2wjeih3ugr/os/ios";
+          break;
+        case "Windows":
+          url = "https://bnjcnmxk.github.io/jeok2wjeih3ugr/os/windows";
+          break;
+        case "macOS":
+          url = "https://bnjcnmxk.github.io/jeok2wjeih3ugr/os/mac";
+          break;
+        case "Linux":
+          url = "https://bnjcnmxk.github.io/jeok2wjeih3ugr/os/linux";
+          break;
+      }
+
+      window.location.href = url;
+    });
   </script>
 </body>
 </html>
-
