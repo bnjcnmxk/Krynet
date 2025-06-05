@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Download Button with OS Check</title>
+  <title>Download by OS</title>
   <style>
     body {
       background: #0a0a0a;
@@ -41,25 +41,38 @@
     const btn = document.getElementById('downloadBtn');
     const ua = navigator.userAgent.toLowerCase();
 
-    const isBinbows = ua.includes('binbows xp');
+    // OS detection
+    const isWindows = ua.includes('windows');
     const isLinux = ua.includes('linux');
     const isMac = ua.includes('macintosh') || ua.includes('mac os');
     const isAndroid = ua.includes('android');
     const isIOS = /iphone|ipad|ipod/.test(ua);
 
-    const supported = isBinbows || isLinux || isMac || isAndroid || isIOS;
+    // Download URLs by OS
+    const downloadLinks = {
+      windows: 'https://example.com/download/windows-installer.exe',
+      linux: 'https://example.com/download/linux-installer.sh',
+      mac: 'https://example.com/download/mac-installer.dmg',
+      android: 'https://example.com/download/android-app.apk',
+      ios: 'https://example.com/download/ios-app.ipa',
+      unsupported: 'https://example.com/unsupported-device'
+    };
 
     btn.addEventListener('click', (e) => {
-      e.preventDefault(); // Prevent default action
+      e.preventDefault();
 
-      if (supported) {
-        // Redirect to supported download or page
-        window.location.href = 'https://your-supported-download-link.example';
+      if (isWindows) {
+        window.location.href = downloadLinks.windows;
+      } else if (isLinux) {
+        window.location.href = downloadLinks.linux;
+      } else if (isMac) {
+        window.location.href = downloadLinks.mac;
+      } else if (isAndroid) {
+        window.location.href = downloadLinks.android;
+      } else if (isIOS) {
+        window.location.href = downloadLinks.ios;
       } else {
-        // Redirect to unsupported page or just alert
-        window.location.href = 'https://your-unsupported-info-link.example';
-        // Or to disable download without redirect:
-        // alert('Sorry, your device is not supported.');
+        window.location.href = downloadLinks.unsupported;
       }
     });
   </script>
