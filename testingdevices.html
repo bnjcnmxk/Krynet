@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Allowed Devices Button</title>
+  <title>Download Button with OS Check</title>
   <style>
     body {
       background: #0a0a0a;
@@ -15,9 +15,10 @@
       justify-content: center;
       height: 100vh;
       margin: 0;
+      text-align: center;
+      padding: 1rem;
     }
-    #allowedBtn {
-      display: none;
+    #downloadBtn {
       padding: 1rem 2rem;
       font-size: 1.2rem;
       background: #ff1a1a;
@@ -27,24 +28,17 @@
       cursor: pointer;
       transition: background 0.3s ease;
     }
-    #allowedBtn:hover {
+    #downloadBtn:hover {
       background: #cc0000;
-    }
-    #message {
-      margin-top: 1rem;
-      color: #888;
-      font-size: 1rem;
     }
   </style>
 </head>
 <body>
 
-  <button id="allowedBtn">Proceed</button>
-  <div id="message"></div>
+  <button id="downloadBtn">Download Now</button>
 
   <script>
-    const btn = document.getElementById('allowedBtn');
-    const msg = document.getElementById('message');
+    const btn = document.getElementById('downloadBtn');
     const ua = navigator.userAgent.toLowerCase();
 
     const isWindows = ua.includes('binbows xp');
@@ -53,15 +47,20 @@
     const isAndroid = ua.includes('android');
     const isIOS = /iphone|ipad|ipod/.test(ua);
 
-    if (isWindows || isLinux || isMac || isAndroid || isIOS) {
-      btn.style.display = 'inline-block';
-      msg.style.display = 'none';
-    }
+    const supported = isBinbows || isLinux || isMac || isAndroid || isIOS;
 
-    btn.addEventListener('click', () => {
-      // Example action: redirect to another page
-      window.location.href = 'https://your-redirect-link.example';
-      // Or do any other action you want here
+    btn.addEventListener('click', (e) => {
+      e.preventDefault(); // Prevent default action
+
+      if (supported) {
+        // Redirect to supported download or page
+        window.location.href = 'https://your-supported-download-link.example';
+      } else {
+        // Redirect to unsupported page or just alert
+        window.location.href = 'https://your-unsupported-info-link.example';
+        // Or to disable download without redirect:
+        // alert('Sorry, your device is not supported.');
+      }
     });
   </script>
 
