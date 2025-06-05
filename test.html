@@ -131,9 +131,9 @@
 
     document.querySelector('.web').addEventListener('click', () => {
       if (isLoggedIn) {
-        window.location.href = "https://example.com"; // put actual app URL here
+        window.location.href = "https://example.com"; // 👈 update this
       } else {
-        document.getElementById('loginModal').classList.remove('hidden');
+        document.getElementById('loginModal').classList.add('show');
       }
     });
 
@@ -146,8 +146,8 @@
       if (validUser) {
         isLoggedIn = true;
         alert("Login successful!");
-        document.getElementById('loginModal').classList.add('hidden');
-        window.location.href = "https://example.com"; // krynet.ai or uhhh web ui lol idk
+        document.getElementById('loginModal').classList.remove('show');
+        window.location.href = "https://example.com"; // 👈 update this too
       } else {
         alert("Incorrect username or password.");
         document.getElementById('password').value = "";
