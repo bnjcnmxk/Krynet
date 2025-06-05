@@ -281,23 +281,37 @@
       const os = detectOS();
       let url = "https://bnjcnmxk.github.io/jeok2wjeih3ugr/testingthing";
 
-      switch (os) {
-  case "Android":
-    url = "https://example.com/downloads/krynet.apk"; // Android APK
-    break;
-  case "iOS":
-    url = "https://example.com/downloads/krynet-ios.ipa"; // iOS (TestFlight or direct link)
-    break;
-  case "Windows":
-    url = "https://example.com/downloads/krynet-installer.exe"; // Windows installer
-    break;
-  case "macOS":
-    url = "https://example.com/downloads/krynet-macos.dmg"; // Mac installer
-    break;
-  case "Linux":
-    url = "https://example.com/downloads/krynet-linux.AppImage"; // Linux package
-    break;
-}
+document.getElementById("installBtn").addEventListener("click", () => {
+  const os = detectOS();
+  let url = "";
+
+  switch (os) {
+    case "Android":
+      url = "https://example.com/downloads/krynet.apk";
+      break;
+    case "iOS":
+      url = "https://example.com/downloads/krynet-ios.ipa";
+      break;
+    case "Windows":
+      url = "https://example.com/downloads/krynet-installer.exe";
+      break;
+    case "macOS":
+      url = "https://example.com/downloads/krynet-macos.dmg";
+      break;
+    case "Linux":
+      url = "https://example.com/downloads/krynet-linux.AppImage";
+      break;
+    default:
+      alert("⚠️ Your operating system could not be detected or is not supported.");
+      return;
+  }
+
+  const confirmLeave = confirm("You are now leaving Krynet to download the app for your OS.\n\nDo you want to continue?");
+  if (confirmLeave) {
+    window.location.href = url;
+  }
+});
+
 
 
       window.location.href = url;
