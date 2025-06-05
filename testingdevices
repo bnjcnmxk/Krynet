@@ -1,19 +1,69 @@
-dont use this is a testing link is just for us to test buttons
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Allowed Devices Button</title>
+  <style>
+    body {
+      background: #0a0a0a;
+      color: white;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      margin: 0;
+    }
+    #allowedBtn {
+      display: none;
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      background: #ff1a1a;
+      border: none;
+      border-radius: 12px;
+      color: white;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+    #allowedBtn:hover {
+      background: #cc0000;
+    }
+    #message {
+      margin-top: 1rem;
+      color: #888;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
 
+  <button id="allowedBtn">Proceed</button>
+  <div id="message">Your device is not supported.</div>
 
-<button id="allowedBtn" style="display:none;">Allowed Devices Button</button>
+  <script>
+    const btn = document.getElementById('allowedBtn');
+    const msg = document.getElementById('message');
+    const ua = navigator.userAgent.toLowerCase();
 
-<script>
-  const btn = document.getElementById('allowedBtn');
-  const ua = navigator.userAgent.toLowerCase();
+    const isWindows = ua.includes('windows');
+    const isLinux = ua.includes('linux');
+    const isMac = ua.includes('macintosh') || ua.includes('mac os');
+    const isAndroid = ua.includes('android');
+    const isIOS = /iphone|ipad|ipod/.test(ua);
 
-  const isWindows = ua.includes('windows');
-  const isLinux = ua.includes('linux');
-  const isMac = ua.includes('macintosh') || ua.includes('mac os');
-  const isAndroid = ua.includes('android');
-  const isIOS = /iphone|ipad|ipod/.test(ua);
+    if (isWindows || isLinux || isMac || isAndroid || isIOS) {
+      btn.style.display = 'inline-block';
+      msg.style.display = 'none';
+    }
 
-  if (isWindows || isLinux || isMac || isAndroid || isIOS) {
-    btn.style.display = 'inline-block';
-  }
-</script>
+    btn.addEventListener('click', () => {
+      // Example action: redirect to another page
+      window.location.href = 'https://your-redirect-link.example';
+      // Or do any other action you want here
+    });
+  </script>
+
+</body>
+</html>
