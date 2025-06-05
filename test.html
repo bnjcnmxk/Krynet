@@ -122,30 +122,20 @@
   </div>
 
   <script>
-    let isLoggedIn = false;
-
-    document.querySelector('.web').addEventListener('click', () => {
-      if (isLoggedIn) {
-        window.location.href = "https://example.com"; // replace with actual web app URL
-      } else {
-        document.getElementById('loginModal').classList.remove('hidden');
-      }
-    });
-
-    function login() {
-      const user = document.getElementById('username').value;
-      const pass = document.getElementById('password').value;
-
-function login() {
-  const user = document.getElementById('username').value;
-  const pass = document.getElementById('password').value;
-
-const users = [
+    const users = [
       { username: "4zx16", password: "UmmmOkidk InKryNet I trust" },
       { username: "7zh14", password: "&7k#9@X!2p$Q8m%zT3L^a6Vw&N1d@Yx4B5gZp7j#R9f!Q2m$X8l%B4s^" },
     ];
 
     let isLoggedIn = false;
+
+    document.querySelector('.web').addEventListener('click', () => {
+      if (isLoggedIn) {
+        window.location.href = "https://example.com"; // put actual app URL here
+      } else {
+        document.getElementById('loginModal').classList.remove('hidden');
+      }
+    });
 
     function login() {
       const user = document.getElementById('username').value.trim();
@@ -157,7 +147,7 @@ const users = [
         isLoggedIn = true;
         alert("Login successful!");
         document.getElementById('loginModal').classList.add('hidden');
-        window.location.href = "https://example.com";
+        window.location.href = "https://example.com"; // replace with real URL
       } else {
         alert("Incorrect username or password.");
         document.getElementById('password').value = "";
