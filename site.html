@@ -54,10 +54,22 @@
       padding: 5rem 2rem;
     }
 
-    .main h2 {
+    #Animation {
       font-size: 3rem;
-      margin-bottom: 1rem;
+      font-weight: bold;
       color: #ff4d4d;
+      border-right: 2px solid #ff4d4d;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 0;
+      margin-bottom: 1rem;
+      animation: blink 0.75s step-end infinite;
+    }
+
+    @keyframes blink {
+      50% {
+        border-color: transparent;
+      }
     }
 
     .main p {
@@ -202,10 +214,10 @@
   </header>
 
   <main class="main">
-    <h2>Encrypted. Anonymous. Yours.</h2>
+    <div id="Animation"></div>
     <p>
       Krynet offers a secure and private communication platform — no personal identifiers, no tracking, and zero compromises.
-Experience anonymous, encrypted messaging protected by military-grade end-to-end encryption.
+      Experience anonymous, encrypted messaging protected by military-grade end-to-end encryption.
     </p>
     <div class="button-group">
       <button class="button" id="joinNow">Join Now</button>
@@ -232,7 +244,6 @@ Experience anonymous, encrypted messaging protected by military-grade end-to-end
     © 2025 Krynet. No tracking. No compromise.
   </footer>
 
-  <!-- Modal -->
   <div class="modal" id="loginModal">
     <div class="modal-content">
       <h2>Login to Use Web</h2>
@@ -242,8 +253,35 @@ Experience anonymous, encrypted messaging protected by military-grade end-to-end
     </div>
   </div>
 
-  <!-- Scripts -->
   <script>
+    const phrases = ["Encrypted", "Anonymous", "Yours"];
+    let currentPhrase = 0;
+    let currentChar = 0;
+    const element = document.getElementById("Animation");
+
+    function type() {
+      if (currentChar <= phrases[currentPhrase].length) {
+        element.textContent = phrases[currentPhrase].substring(0, currentChar);
+        currentChar++;
+        setTimeout(type, 100);
+      } else {
+        setTimeout(erase, 2000);
+      }
+    }
+
+    function erase() {
+      if (currentChar > 0) {
+        currentChar--;
+        element.textContent = phrases[currentPhrase].substring(0, currentChar);
+        setTimeout(erase, 50);
+      } else {
+        currentPhrase = (currentPhrase + 1) % phrases.length;
+        setTimeout(type, 500);
+      }
+    }
+
+    type();
+
     const users = [
       { username: "4zx16", password: "InKryNet I trust" },
       { username: "7zh14", password: "&7k#9@X!2p$Q8m%zT3L^aV^" },
@@ -269,21 +307,20 @@ Experience anonymous, encrypted messaging protected by military-grade end-to-end
     const agreeBtn = document.getElementById("agreeBtn");
     const disagreeBtn = document.getElementById("disagreeBtn");
 
-const joinNowBtn = document.getElementById("joinNow");
-const loginBtn = document.querySelector(".nav-login"); // or use ID if you have one
+    const joinNowBtn = document.getElementById("joinNow");
+    const loginBtn = document.querySelector(".nav-login");
 
-if (joinNowBtn) {
-  joinNowBtn.addEventListener("click", () => {
-    modal.style.display = "flex";
-  });
-}
+    if (joinNowBtn) {
+      joinNowBtn.addEventListener("click", () => {
+        modal.style.display = "flex";
+      });
+    }
 
-if (loginBtn) {
-  loginBtn.addEventListener("click", () => {
-    modal.style.display = "flex";
-  });
-}
-
+    if (loginBtn) {
+      loginBtn.addEventListener("click", () => {
+        modal.style.display = "flex";
+      });
+    }
 
     window.addEventListener("click", function (e) {
       if (e.target === modal) {
